@@ -9,7 +9,6 @@ export const usePlayerStore = defineStore("PlayerStore", {
   actions: {
     changePlayerState() {
       this.newPlayer = !this.newPlayer;
-      console.log(useLocalStorage("new-player", this.isNewPlayer));
       useLocalStorage("new-player", this.isNewPlayer);
     },
   },
