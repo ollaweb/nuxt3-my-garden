@@ -1,9 +1,14 @@
+<script setup lang="ts">
+import {usePlayerStore} from "@/stores/PlayerStore";
+const playerStore = usePlayerStore();
+</script>
+
 <template>
   <div class="relative flex flex-col min-h-screen">
     <header>
       <div class="w-full mx-auto max-w-screen-xl px-4 py-8">
         <nav
-          class="flex flex-wrap items-center justify-between bg-white border-gray-200"
+          class="flex h-11 flex-wrap items-center justify-between bg-white border-gray-200"
         >
           <NuxtLink
             to="/"
@@ -42,7 +47,7 @@
               >
             </li>
             <li>
-                <button type="button" class="text-green-600 hover:text-white border border-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-5 py-2.5">Restart the game</button>
+                <button v-if="!playerStore.isNewPlayer" @click="playerStore.changePlayerState()" type="button" class="text-green-600 hover:text-white border border-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-5 py-2.5">Restart the game</button>
             </li>
           </ul>
         </nav>
