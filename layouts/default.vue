@@ -41,6 +41,9 @@
                 >About</NuxtLink
               >
             </li>
+            <li>
+                <button type="button" class="text-green-600 hover:text-white border border-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-5 py-2.5">Restart the game</button>
+            </li>
           </ul>
         </nav>
       </div>
