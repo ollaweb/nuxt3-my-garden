@@ -12,10 +12,11 @@
     "@nuxtjs/tailwindcss": "^6.6.6",
     "@vueuse/core": "^10.0.2",
     "@vueuse/nuxt": "^10.0.2",
-    "nuxt": "^3.4.1"
+    "nuxt": "^3.4.1",
+    "sass": "^1.62.0",
+    "sass-loader": "^13.2.2"
   },
   "dependencies": {
-    "@nuxtjs/composition-api": "^0.33.1",
     "@pinia/nuxt": "^0.4.8",
     "pinia": "^2.0.34"
   }

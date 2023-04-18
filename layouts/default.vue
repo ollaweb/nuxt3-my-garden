@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {usePlayerStore} from "@/stores/PlayerStore";
+import { usePlayerStore } from "@/stores/PlayerStore";
 const playerStore = usePlayerStore();
 </script>
 
@@ -35,25 +35,34 @@ const playerStore = usePlayerStore();
             <li>
               <NuxtLink
                 to="/"
-                class="font-medium hover:text-green-600 transition-colors"
+                class="font-medium text-zinc-800 hover:text-green-600 transition-colors"
                 >Home</NuxtLink
               >
             </li>
             <li>
               <NuxtLink
                 to="/about"
-                class="font-medium hover:text-green-600 transition-colors"
+                class="font-medium text-zinc-800 hover:text-green-600 transition-colors"
                 >About</NuxtLink
               >
             </li>
             <li>
-                <button v-if="!playerStore.isNewPlayer" @click="playerStore.changePlayerState()" type="button" class="text-green-600 hover:text-white border border-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-5 py-2.5">Restart the game</button>
+              <button
+                v-if="!playerStore.isNewPlayer"
+                @click="playerStore.changePlayerState()"
+                type="button"
+                class="text-green-600 hover:text-white border border-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-5 py-2.5"
+              >
+                Restart the game
+              </button>
             </li>
           </ul>
         </nav>
       </div>
     </header>
-    <main class="relative grow shrink-0 basis-auto overflow-x-hidden">
+    <main
+      class="relative grow shrink-0 basis-auto overflow-x-hidden flex flex-col"
+    >
       <slot />
     </main>
     <footer class="bg-white rounded-lg shadow m-4">
