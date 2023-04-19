@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import PopUp from "~/components/UI/PopUp.vue";
-import { usePlayerStore } from "~/stores/PlayerStore";
-const playerStore = usePlayerStore();
+import PopUp from '~/components/UI/PopUp.vue'
+import { usePlayerStore } from '~/stores/PlayerStore'
+const playerStore = usePlayerStore()
 </script>
 
 <template>
@@ -104,11 +104,10 @@ const playerStore = usePlayerStore();
         </button>
       </div>
 
-      <div v-else class="flex w-full gap-16">
-        <div
-          class="playground basis-3/5 bg-gradient-to-b from-cyan-200 to-green-200"
-        >
-          Here will be a playground
+      <div v-else v-show="playerStore.player.name" class="flex w-full gap-16">
+        <div class="playground basis-3/5">
+          <PlaygroundArea />
+          <PlaygroundButtons />
         </div>
         <div class="controls basis-2/5">
           <ProfileControls />
