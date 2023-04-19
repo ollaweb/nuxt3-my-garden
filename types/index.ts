@@ -20,7 +20,9 @@ interface PlantType {
 
 interface ItemsType {
   name: string
-  amount: number
+  quantity: number
+  timeOfGrowing: number
+  moneyToEarn: number
 }
 
 export interface Weather {

@@ -18,7 +18,9 @@ const startPlayer: Player = {
       items: [
         {
           name: 'Magic Flower',
-          amount: 2
+          quantity: 2,
+          timeOfGrowing: 120000,
+          moneyToEarn: 5
         }
       ]
     }
