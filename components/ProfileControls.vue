@@ -12,10 +12,7 @@ let stringDegreeToCSS = degree.toString() + 'deg'
 </script>
 
 <template>
-  <div
-    v-show="playerStore.player.name"
-    class="p-2 h-full border border-gray-200 rounded-lg"
-  >
+  <div class="p-2 h-full border border-gray-200 rounded-lg">
     <div
       class="flex justify-between items-center pb-2 border-b-2 border-gray-100"
     >
@@ -26,7 +23,7 @@ let stringDegreeToCSS = degree.toString() + 'deg'
       <div class="flex items-center gap-2">
         coins
         <div class="flex items-center gap-1">
-          10
+          {{ playerStore.player.coins }}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
