@@ -1,12 +1,26 @@
 export interface Player {
   name: string
   newPlayer: boolean
-  level: number
+  level: Level
+  coins: number
+  stageOfGrowing: number
+  stock: PlantType[]
+}
+
+interface Level {
+  number: number
   levelPoints: number
   pointsToTheNextLevel: number
-  coins: number
-  pot: number
-  stageOfGrowing: number
+}
+
+interface PlantType {
+  name: string
+  items: ItemsType[]
+}
+
+interface ItemsType {
+  name: string
+  amount: number
 }
 
 export interface Weather {

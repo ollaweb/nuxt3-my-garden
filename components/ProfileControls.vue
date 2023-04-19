@@ -3,8 +3,8 @@ import { usePlayerStore } from '@/stores/PlayerStore'
 const playerStore = usePlayerStore()
 
 let progress =
-  (playerStore.player.levelPoints * 100) /
-  playerStore.player.pointsToTheNextLevel
+  (playerStore.player.level.levelPoints * 100) /
+  playerStore.player.level.pointsToTheNextLevel
 
 let degree = (360 / 100) * progress
 
@@ -46,7 +46,7 @@ let stringDegreeToCSS = degree.toString() + 'deg'
         <div
           class="relative level-progress w-8 h-8 rounded-full flex items-center justify-center before:content-[''] before:w-6 before:h-6 before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-fuchsia-200"
         >
-          <span class="z-[2]">{{ playerStore.player.level }}</span>
+          <span class="z-[2]">{{ playerStore.player.level.number }}</span>
         </div>
       </div>
     </div>

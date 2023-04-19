@@ -5,12 +5,24 @@ import { Player } from '~/types'
 const startPlayer: Player = {
   newPlayer: true,
   name: '',
-  level: 1,
-  levelPoints: 0,
-  pointsToTheNextLevel: 100,
+  level: {
+    number: 1,
+    levelPoints: 0,
+    pointsToTheNextLevel: 100
+  },
   coins: 10,
-  pot: 1,
-  stageOfGrowing: 0
+  stageOfGrowing: 0,
+  stock: [
+    {
+      name: 'flowers',
+      items: [
+        {
+          name: 'Magic Flower',
+          amount: 2
+        }
+      ]
+    }
+  ]
 }
 
 export const usePlayerStore = defineStore('PlayerStore', {
