@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { usePlayerStore } from '@/stores/PlayerStore'
+import SeedCard from './UI/SeedCard.vue'
 const playerStore = usePlayerStore()
+
+const stock = playerStore.player.stock
 
 let progress =
   (playerStore.player.level.levelPoints * 100) /
@@ -12,9 +15,9 @@ let stringDegreeToCSS = degree.toString() + 'deg'
 </script>
 
 <template>
-  <div class="p-2 h-full border border-gray-200 rounded-lg">
+  <div class="p-2 h-full flex flex-col gap-4 border border-gray-200 rounded-lg">
     <div
-      class="flex justify-between items-center pb-2 border-b-2 border-gray-100"
+      class="profile-info flex justify-between items-center pb-2 border-b-2 border-gray-100"
     >
       <h2 class="font-medium">
         <span class="text-green-600">{{ playerStore.player.name }}</span
@@ -28,7 +31,7 @@ let stringDegreeToCSS = degree.toString() + 'deg'
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="w-6 h-6 fill-amber-600"
+            class="w-6 h-6 fill-green-700"
           >
             <path
               d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 01-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004zM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 01-.921.42z"
@@ -47,6 +50,23 @@ let stringDegreeToCSS = degree.toString() + 'deg'
           class="relative level-progress w-8 h-8 rounded-full flex items-center justify-center before:content-[''] before:w-6 before:h-6 before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-fuchsia-200"
         >
           <span class="z-[2]">{{ playerStore.player.level.number }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="profile-controls">
+      <div class="pb-2 border-b-2 border-gray-100">
+        <span class="font-medium"> Stock:</span>
+        <div class="mt-2" v-for="plantType in stock">
+          <i class="text-gray-500">{{ plantType.name }}</i>
+          <div class="mt-1 grid grid-cols-3 gap-4">
+            <SeedCard
+              v-for="item in plantType.items"
+              :name="item.name"
+              :quantity="item.quantity"
+              :time-of-growing="item.timeOfGrowing"
+              :money-to-earn="item.moneyToEarn"
+            />
+          </div>
         </div>
       </div>
     </div>
