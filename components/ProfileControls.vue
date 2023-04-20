@@ -11,7 +11,7 @@ let progress =
 
 let degree = (360 / 100) * progress
 
-let stringDegreeToCSS = degree.toString() + 'deg'
+let stringDegreeToCSS = ref(degree.toString() + 'deg')
 </script>
 
 <template>
@@ -59,13 +59,7 @@ let stringDegreeToCSS = degree.toString() + 'deg'
         <div class="mt-2" v-for="plantType in stock">
           <i class="text-gray-500">{{ plantType.name }}</i>
           <div class="mt-1 grid grid-cols-3 gap-4">
-            <SeedCard
-              v-for="item in plantType.items"
-              :name="item.name"
-              :quantity="item.quantity"
-              :time-of-growing="item.timeOfGrowing"
-              :money-to-earn="item.moneyToEarn"
-            />
+            <SeedCard v-for="item in plantType.items" :item="item" />
           </div>
         </div>
       </div>
