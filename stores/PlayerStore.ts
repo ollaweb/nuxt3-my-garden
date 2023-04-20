@@ -14,10 +14,13 @@ const startPlayer: Player = {
   stageOfGrowing: 0,
   stock: [
     {
+      id: 1,
       name: 'flowers',
       items: [
         {
+          id: 1,
           name: 'Magic Flower',
+          image: '/images/store/flowers/1.svg',
           quantity: 2,
           timeOfGrowing: 120000,
           moneyToEarn: 5
@@ -29,7 +32,7 @@ const startPlayer: Player = {
 
 export const usePlayerStore = defineStore('PlayerStore', {
   state: () => ({
-    player: useLocalStorage('my-garden-app', startPlayer)
+    player: useLocalStorage('my-garden-app-player', startPlayer)
   }),
   getters: {
     isNewPlayer: state => state.player.newPlayer
@@ -37,11 +40,11 @@ export const usePlayerStore = defineStore('PlayerStore', {
   actions: {
     changePlayerState() {
       this.player.newPlayer = !this.player.newPlayer
-      useLocalStorage('my-garden-app', startPlayer)
+      useLocalStorage('my-garden-app-player', startPlayer)
     },
     setPlayerName(name: string) {
       this.player.name = name.trim()
-      useLocalStorage('my-garden-app', { name: this.player.name })
+      useLocalStorage('my-garden-app-player', { name: this.player.name })
     }
   }
 })

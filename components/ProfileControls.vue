@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { usePlayerStore } from '@/stores/PlayerStore'
 import SeedCard from './UI/SeedCard.vue'
+import { usePlantsStore } from '@/stores/PlantsStore'
+
 const playerStore = usePlayerStore()
+const plantsStore = usePlantsStore()
 
 const stock = playerStore.player.stock
+const store = plantsStore.plants.store
 
 let progress =
   (playerStore.player.level.levelPoints * 100) /
@@ -60,6 +64,19 @@ let stringDegreeToCSS = ref(degree.toString() + 'deg')
           <i class="text-gray-500">{{ plantType.name }}</i>
           <div class="mt-1 grid grid-cols-3 gap-4">
             <SeedCard v-for="item in plantType.items" :item="item" />
+          </div>
+        </div>
+      </div>
+      <div class="pb-2 border-b-2 border-gray-100">
+        <span class="font-medium"> Store:</span>
+        <div class="mt-2" v-for="plantType in store" :key="plantType.id">
+          <i class="text-gray-500">{{ plantType.name }}</i>
+          <div class="mt-1 grid grid-cols-3 gap-4">
+            <SeedCard
+              v-for="item in plantType.items"
+              :item="item"
+              :key="item.id"
+            />
           </div>
         </div>
       </div>

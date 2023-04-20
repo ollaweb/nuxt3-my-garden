@@ -13,19 +13,27 @@ interface Level {
   pointsToTheNextLevel: number
 }
 
-interface PlantType {
+export interface PlantType {
+  id: number
   name: string
   items: ItemsType[]
 }
 
 interface ItemsType {
+  id: number
   name: string
-  quantity: number
+  image: string
+  quantity?: number
   timeOfGrowing: number
   moneyToEarn: number
+  price?: number
 }
 
 export interface Weather {
   name: string
   time: number
+}
+
+export interface Store {
+  store: PlantType[]
 }
