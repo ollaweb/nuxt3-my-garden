@@ -32,7 +32,10 @@ function setQuantity(payload: InputQuantityPayload): void {
 
 <template>
   <div
-    class="flex flex-col items-center justify-between gap-2 p-2 rounded cursor-pointer hover:bg-green-50 transition-colors"
+    class="flex flex-col items-center justify-between gap-2 p-2 rounded"
+    :class="{
+      'hover:bg-green-50 transition-colors cursor-pointer': item.quantity
+    }"
   >
     <div>
       <img :src="item.image" alt="picture of flower" />
