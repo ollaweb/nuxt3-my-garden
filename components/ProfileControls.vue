@@ -6,13 +6,14 @@ import { usePlantsStore } from '@/stores/PlantsStore';
 const playerStore = usePlayerStore();
 const plantsStore = usePlantsStore();
 
-let progress: number =
-  (playerStore.player.level.levelPoints * 100) /
-  playerStore.player.level.pointsToTheNextLevel;
-
-let degree: number = (360 / 100) * progress;
-
-let stringDegreeToCSS = ref(degree.toString() + 'deg');
+let progress = computed(() => {
+  return (
+    (
+      ((360 / 100) * (playerStore.player.level.levelPoints * 100)) /
+      playerStore.player.level.pointsToTheNextLevel
+    ).toString() + 'deg'
+  );
+});
 </script>
 
 <template>
@@ -92,6 +93,6 @@ let stringDegreeToCSS = ref(degree.toString() + 'deg');
 
 <style lang="scss">
 .level-progress {
-  background: conic-gradient(#c026d3 v-bind(stringDegreeToCSS), #ffffff 0deg);
+  background: conic-gradient(#c026d3 v-bind(progress), #ffffff 0deg);
 }
 </style>

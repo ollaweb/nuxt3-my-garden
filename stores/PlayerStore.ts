@@ -79,6 +79,10 @@ export const usePlayerStore = defineStore('PlayerStore', {
         quantity: payload.quantity
       };
 
+      //add level points for buying new seeds
+      this.player.level.levelPoints +=
+        plantToCollect.moneyToEarn * plantToCollect.quantity;
+
       //if there is no such a PlantType in player's stock
       if (
         this.player.stock.findIndex(item => item.id == payload.plantTypeId) ==
