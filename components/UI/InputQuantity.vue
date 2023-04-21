@@ -7,6 +7,10 @@ const props = defineProps({
   price: {
     type: Number,
     required: true
+  },
+  coins: {
+    type: Number,
+    required: true
   }
 });
 
@@ -17,12 +21,23 @@ const totalPrice = computed(() => {
 
 const payload = {
   id: props.id,
-  quantity: quantity.value
+  quantity: quantity.value,
+  totalPrice: totalPrice.value
 };
 watch(
   () => quantity.value,
   (newQuantity, oldQuantity) => {
+    if (newQuantity < 1) {
+      quantity.value = 1;
+    }
     payload.quantity = newQuantity;
+  }
+);
+
+watch(
+  () => totalPrice.value,
+  (newPrice, oldPrice) => {
+    payload.totalPrice = newPrice;
   }
 );
 
@@ -40,15 +55,16 @@ function handleSubmitQuantity(): void {
       <button
         @click="quantity--"
         type="button"
-        class="focus:outline-none text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-3 py-1"
+        class="focus:outline-none text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-3 py-1 disabled:bg-gray-500 disabled:cursor-not-allowed"
+        :disabled="quantity <= 1"
       >
         -
       </button>
       <input
-        type="text"
+        type="number"
         name="quantity"
         v-model="quantity"
-        class="w-full border border-gray-200 rounded text-center"
+        class="quantity-input w-full border border-gray-200 rounded text-center"
       />
       <button
         @click="quantity++"
@@ -63,7 +79,8 @@ function handleSubmitQuantity(): void {
       <button
         @click="handleSubmitQuantity"
         type="button"
-        class="flex flex-wrap gap-1 focus:outline-none text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm pl-3 pr-2 py-1.5"
+        class="flex flex-wrap gap-1 focus:outline-none text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm pl-3 pr-2 py-1.5 disabled:bg-gray-500 disabled:cursor-not-allowed"
+        :disabled="props.coins < totalPrice"
       >
         Buy for
         <span class="flex gap-1">
@@ -87,3 +104,19 @@ function handleSubmitQuantity(): void {
     </div>
   </div>
 </template>
+
+<style lang="scss">
+.quantity-input {
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+</style>

@@ -56,6 +56,9 @@ export const usePlayerStore = defineStore('PlayerStore', {
       // useLocalStorage('my-garden-app-player', { name: this.player.name });
     },
     addPlantToStock(payload: InputQuantityPayload) {
+      //subtract coins for purchased plant
+      this.player.coins -= payload.totalPrice;
+
       //use PlantsStore
       const plantsStore = usePlantsStore();
 

@@ -26,6 +26,7 @@ function setQuantity(payload: InputQuantityPayload): void {
     plantTypeId: plantTypeId
   };
   playerStore.addPlantToStock(data);
+  console.log(payload);
 }
 </script>
 
@@ -94,6 +95,7 @@ function setQuantity(payload: InputQuantityPayload): void {
       </div>
       <div v-else class="mt-2">
         <InputQuantity
+          :coins="playerStore.player.coins"
           :price="item.price"
           :id="item.id"
           @set-quantity="setQuantity"
