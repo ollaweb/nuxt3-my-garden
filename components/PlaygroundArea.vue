@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { usePlayerStore } from '@/stores/PlayerStore'
-import { Weather } from '~/types'
+import { usePlayerStore } from '@/stores/PlayerStore';
+import type { Weather } from '~/types';
 
-const playerStore = usePlayerStore()
+const playerStore = usePlayerStore();
 
 let weather: Weather = reactive({
   name: 'sun',
   time: 120000
-})
+});
 </script>
 
 <template>

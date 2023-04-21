@@ -1,12 +1,12 @@
-<script setup>
-import { usePlayerStore } from "@/stores/PlayerStore";
+<script setup lang="ts">
+import { usePlayerStore } from '@/stores/PlayerStore';
 const playerStore = usePlayerStore();
 
-const name = ref("");
+const name = ref('');
 
-function handleSubmit(payload) {
+function handleSubmit(payload: string): void {
   playerStore.setPlayerName(payload);
-  name.value = "";
+  name.value = '';
 }
 </script>
 

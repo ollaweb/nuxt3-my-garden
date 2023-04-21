@@ -1,20 +1,31 @@
 <script setup lang="ts">
-import InputQuantity from './InputQuantity.vue'
+import InputQuantity from './InputQuantity.vue';
+import type { InputQuantityPayload } from '~/types/UI';
+import { usePlayerStore } from '@/stores/PlayerStore';
+const playerStore = usePlayerStore();
 
-const { item } = defineProps({
+const { item, plantTypeId } = defineProps({
   item: {
     type: Object,
     required: true
+  },
+  plantTypeId: {
+    type: Number,
+    required: true
   }
-})
+});
 
-const minutesOfGrowing = item.timeOfGrowing / 1000 / 60
+const minutesOfGrowing = item.timeOfGrowing / 1000 / 60;
 const secondsOfGrowing = minutesOfGrowing
   ? item.timeOfGrowing / 1000 - minutesOfGrowing * 60
-  : item.timeOfGrowing / 1000
+  : item.timeOfGrowing / 1000;
 
-function setQuantity(quantity: number) {
-  console.log('I got quantity: ' + quantity)
+function setQuantity(payload: InputQuantityPayload): void {
+  const data = {
+    ...payload,
+    plantTypeId: plantTypeId
+  };
+  playerStore.addPlantToStock(data);
 }
 </script>
 
@@ -82,7 +93,11 @@ function setQuantity(quantity: number) {
         <span>{{ item.quantity }}</span>
       </div>
       <div v-else class="mt-2">
-        <InputQuantity :price="item.price" @set-quantity="setQuantity" />
+        <InputQuantity
+          :price="item.price"
+          :id="item.id"
+          @set-quantity="setQuantity"
+        />
       </div>
     </div>
   </div>

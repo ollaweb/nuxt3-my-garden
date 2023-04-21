@@ -1,21 +1,36 @@
 <script setup lang="ts">
 const props = defineProps({
+  id: {
+    type: Number,
+    required: true
+  },
   price: {
     type: Number,
     required: true
   }
-})
+});
 
-const quantity = ref(1)
+const quantity = ref(1);
 const totalPrice = computed(() => {
-  return quantity.value * props.price
-})
+  return quantity.value * props.price;
+});
 
-const emit = defineEmits(['setQuantity'])
+const payload = {
+  id: props.id,
+  quantity: quantity.value
+};
+watch(
+  () => quantity.value,
+  (newQuantity, oldQuantity) => {
+    payload.quantity = newQuantity;
+  }
+);
 
-function handleSubmitQuantity() {
-  emit('setQuantity', quantity.value)
-  quantity.value = 1
+const emit = defineEmits(['setQuantity']);
+
+function handleSubmitQuantity(): void {
+  emit('setQuantity', payload);
+  quantity.value = 1;
 }
 </script>
 

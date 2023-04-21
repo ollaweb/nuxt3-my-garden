@@ -1,6 +1,13 @@
-import { defineStore } from 'pinia'
-import { useLocalStorage } from '@vueuse/core'
-import { Player } from '~/types'
+import { defineStore } from 'pinia';
+import { useLocalStorage } from '@vueuse/core';
+import type {
+  Player,
+  PlayerPlantType,
+  StorePlantType,
+  StoreItemsType
+} from '~/types';
+import type { InputQuantityPayload } from '~/types/UI';
+import { usePlantsStore } from '@/stores/PlantsStore';
 
 const startPlayer: Player = {
   newPlayer: true,
@@ -28,7 +35,7 @@ const startPlayer: Player = {
       ]
     }
   ]
-}
+};
 
 export const usePlayerStore = defineStore('PlayerStore', {
   state: () => ({
@@ -39,12 +46,71 @@ export const usePlayerStore = defineStore('PlayerStore', {
   },
   actions: {
     changePlayerState() {
-      this.player.newPlayer = !this.player.newPlayer
-      useLocalStorage('my-garden-app-player', startPlayer)
+      this.player.newPlayer = !this.player.newPlayer;
+
+      // localStorage.removeItem('my-garden-app-player');
+      // useLocalStorage('my-garden-app-player', startPlayer);
     },
     setPlayerName(name: string) {
-      this.player.name = name.trim()
-      useLocalStorage('my-garden-app-player', { name: this.player.name })
+      this.player.name = name.trim();
+      // useLocalStorage('my-garden-app-player', { name: this.player.name });
+    },
+    addPlantToStock(payload: InputQuantityPayload) {
+      //use PlantsStore
+      const plantsStore = usePlantsStore();
+
+      //find PlantType in store
+      const newPlantType: StorePlantType[] = plantsStore.plants.store.filter(
+        item => item.id == payload.plantTypeId
+      );
+
+      //find a plant in that PlantType
+      const newPlant: StoreItemsType[] = newPlantType[0].items.filter(
+        item => item.id == payload.id
+      );
+
+      const { price, ...restOfPlant } = newPlant[0];
+
+      const plantToCollect = {
+        ...restOfPlant,
+        quantity: payload.quantity
+      };
+
+      //if there is no such a PlantType in player's stock
+      if (
+        this.player.stock.findIndex(item => item.id == payload.plantTypeId) ==
+        -1
+      ) {
+        //then create new PlantType and put inside the plant
+        const newTypeItem: PlayerPlantType = {
+          id: newPlantType[0].id,
+          name: newPlantType[0].name,
+          items: [plantToCollect]
+        };
+
+        //push newPlantType to players stock with new plant
+        this.player.stock.push(newTypeItem);
+      } else {
+        //if there is a PlantType, so find it
+        const existingPlantTypeIndex: number = this.player.stock.findIndex(
+          item => item.id == payload.plantTypeId
+        );
+
+        const existingPlantIndex: number = this.player.stock[
+          existingPlantTypeIndex
+        ].items.findIndex(item => item.id == payload.id);
+
+        //if there is no such a plant inside existing plant type
+        if (existingPlantIndex == -1) {
+          //insert new plant
+          this.player.stock[existingPlantTypeIndex].items.push(plantToCollect);
+        } else {
+          //if there is such a plant, so we need to add quantity to existing quantity
+          this.player.stock[existingPlantTypeIndex].items[
+            existingPlantIndex
+          ].quantity += payload.quantity;
+        }
+      }
     }
   }
-})
+});

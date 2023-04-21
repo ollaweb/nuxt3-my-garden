@@ -1,8 +1,8 @@
 module.exports = {
-  semi: false,
+  semi: true,
   singleQuote: true,
-  arrowParens: "avoid",
-  trailingComma: "none",
-  endOfLine: "auto",
-  htmlFormatWrapAttributes: "force-aligned",
+  arrowParens: 'avoid',
+  trailingComma: 'none',
+  endOfLine: 'auto',
+  htmlFormatWrapAttributes: 'force-aligned'
 };
