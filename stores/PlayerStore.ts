@@ -20,6 +20,7 @@ const startPlayer: Player = {
   },
   coins: 10,
   stageOfGrowing: 0,
+  timeTillHarvest: 0,
   stock: [
     {
       id: 1,
@@ -141,13 +142,33 @@ export const usePlayerStore = defineStore('PlayerStore', {
         }
       }
     },
+    setTimeOfGrowingWhenSeedAPlant(payload: SeedingPlant) {
+      this.player.timeTillHarvest = this.findPlantById(
+        payload.plantTypeId,
+        payload.id
+      ).timeOfGrowing;
+    },
+    updateTimeOfGrowing(newTime: number) {
+      this.player.timeTillHarvest = newTime;
+    },
     seedAPlant(payload: SeedingPlant) {
+      //decrement quantity when seeding a plant
       --this.findPlantById(payload.plantTypeId, payload.id).quantity;
+
+      //set store sate of timeOfGrowing
+      this.setTimeOfGrowingWhenSeedAPlant(payload);
+
+      //update the growing stage
+      this.player.stageOfGrowing++;
+
+      //if we seeded the last seed
       if (this.findPlantById(payload.plantTypeId, payload.id).quantity == 0) {
         const plantToDelete = {
           plantTypeId: payload.plantTypeId,
           id: payload.id
         };
+
+        //delete seed from stock
         this.deletePlant(plantToDelete);
       }
     },
@@ -165,6 +186,7 @@ export const usePlayerStore = defineStore('PlayerStore', {
         1
       );
 
+      //if we deleted the last item from plant's type, the delete the whole type of plants from the stock
       if (this.player.stock[existingPlantTypeIndex].items.length == 0) {
         this.player.stock.splice(existingPlantTypeIndex, 1);
       }

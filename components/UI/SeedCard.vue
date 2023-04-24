@@ -2,6 +2,8 @@
 import InputQuantity from './InputQuantity.vue';
 import type { InputQuantityPayload } from '~/types/UI';
 import { usePlayerStore } from '@/stores/PlayerStore';
+import { timeInSecondsAndMinutes } from '~/helpers/timeInSecondsAndMinutes';
+
 const playerStore = usePlayerStore();
 
 const { item, plantTypeId } = defineProps({
@@ -15,10 +17,7 @@ const { item, plantTypeId } = defineProps({
   }
 });
 
-const minutesOfGrowing = item.timeOfGrowing / 1000 / 60;
-const secondsOfGrowing = minutesOfGrowing
-  ? item.timeOfGrowing / 1000 - minutesOfGrowing * 60
-  : item.timeOfGrowing / 1000;
+const timeOfGrowing = timeInSecondsAndMinutes(item.timeOfGrowing);
 
 function setQuantity(payload: InputQuantityPayload): void {
   const data = {
@@ -28,9 +27,12 @@ function setQuantity(payload: InputQuantityPayload): void {
   playerStore.addPlantToStock(data);
 }
 
+const emit = defineEmits(['seedAPlant']);
+
 function seedAPlant(): void {
   if (item.quantity) {
     playerStore.seedAPlant({ plantTypeId: plantTypeId, id: item.id });
+    emit('seedAPlant', { plantTypeId: plantTypeId, id: item.id });
   }
 }
 </script>
@@ -64,8 +66,8 @@ function seedAPlant(): void {
           />
         </svg>
         <span
-          >{{ minutesOfGrowing ? minutesOfGrowing + 'm' : '' }}
-          {{ secondsOfGrowing + 's' }}</span
+          >{{ timeOfGrowing.minutes ? timeOfGrowing.minutes + 'm' : '' }}
+          {{ timeOfGrowing.seconds + 's' }}</span
         >
       </div>
       <div class="flex items-center gap-2">

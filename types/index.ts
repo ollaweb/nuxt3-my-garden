@@ -4,6 +4,7 @@ export interface Player {
   level: Level;
   coins: number;
   stageOfGrowing: number;
+  timeTillHarvest: number;
   stock: PlayerPlantType[];
 }
 
