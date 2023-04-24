@@ -29,6 +29,7 @@ const tab = ref('stock');
       Store
     </li>
   </ul>
+
   <SeedsList v-show="tab == 'stock'" :store="playerStore.player.stock" />
   <SeedsList v-show="tab == 'store'" :store="plantsStore.plants.store" />
 </template>

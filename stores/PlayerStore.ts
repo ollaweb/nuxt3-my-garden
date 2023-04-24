@@ -3,10 +3,11 @@ import { useLocalStorage } from '@vueuse/core';
 import type {
   Player,
   PlayerPlantType,
+  PlayerItemsType,
   StorePlantType,
   StoreItemsType
 } from '~/types';
-import type { InputQuantityPayload } from '~/types/UI';
+import type { InputQuantityPayload, SeedingPlant } from '~/types/UI';
 import { usePlantsStore } from '@/stores/PlantsStore';
 
 const startPlayer: Player = {
@@ -42,7 +43,27 @@ export const usePlayerStore = defineStore('PlayerStore', {
     player: useLocalStorage('my-garden-app-player', startPlayer)
   }),
   getters: {
-    isNewPlayer: state => state.player.newPlayer
+    isNewPlayer: state => state.player.newPlayer,
+    findPlantTypeIndex: state => {
+      return (plantTypeId: number): number =>
+        state.player.stock.findIndex(item => item.id == plantTypeId);
+    },
+    findPlantIndex: state => {
+      return (plantTypeId: number, id: number): number =>
+        state.player.stock[
+          state.player.stock.findIndex(item => item.id == plantTypeId)
+        ].items.findIndex(item => item.id == id);
+    },
+    findPlantById: state => {
+      return (plantTypeId: number, id: number): PlayerItemsType =>
+        state.player.stock[
+          state.player.stock.findIndex(item => item.id == plantTypeId)
+        ].items[
+          state.player.stock[
+            state.player.stock.findIndex(item => item.id == plantTypeId)
+          ].items.findIndex(item => item.id == id)
+        ];
+    }
   },
   actions: {
     changePlayerState() {
@@ -99,13 +120,14 @@ export const usePlayerStore = defineStore('PlayerStore', {
         this.player.stock.push(newTypeItem);
       } else {
         //if there is a PlantType, so find it
-        const existingPlantTypeIndex: number = this.player.stock.findIndex(
-          item => item.id == payload.plantTypeId
+        const existingPlantTypeIndex: number = this.findPlantTypeIndex(
+          payload.plantTypeId
         );
 
-        const existingPlantIndex: number = this.player.stock[
-          existingPlantTypeIndex
-        ].items.findIndex(item => item.id == payload.id);
+        const existingPlantIndex: number = this.findPlantIndex(
+          payload.plantTypeId,
+          payload.id
+        );
 
         //if there is no such a plant inside existing plant type
         if (existingPlantIndex == -1) {
@@ -117,6 +139,34 @@ export const usePlayerStore = defineStore('PlayerStore', {
             existingPlantIndex
           ].quantity += payload.quantity;
         }
+      }
+    },
+    seedAPlant(payload: SeedingPlant) {
+      --this.findPlantById(payload.plantTypeId, payload.id).quantity;
+      if (this.findPlantById(payload.plantTypeId, payload.id).quantity == 0) {
+        const plantToDelete = {
+          plantTypeId: payload.plantTypeId,
+          id: payload.id
+        };
+        this.deletePlant(plantToDelete);
+      }
+    },
+    deletePlant(payload: SeedingPlant) {
+      const existingPlantTypeIndex = this.findPlantTypeIndex(
+        payload.plantTypeId
+      );
+      const existingPlantIndex = this.findPlantIndex(
+        payload.plantTypeId,
+        payload.id
+      );
+
+      this.player.stock[existingPlantTypeIndex].items.splice(
+        existingPlantIndex,
+        1
+      );
+
+      if (this.player.stock[existingPlantTypeIndex].items.length == 0) {
+        this.player.stock.splice(existingPlantTypeIndex, 1);
       }
     }
   }

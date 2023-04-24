@@ -4,3 +4,8 @@ export interface InputQuantityPayload {
   quantity: number;
   totalPrice: number;
 }
+
+export interface SeedingPlant {
+  plantTypeId: number;
+  id: number;
+}

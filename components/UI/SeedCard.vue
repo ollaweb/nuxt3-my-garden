@@ -26,12 +26,18 @@ function setQuantity(payload: InputQuantityPayload): void {
     plantTypeId: plantTypeId
   };
   playerStore.addPlantToStock(data);
-  console.log(payload);
+}
+
+function seedAPlant(): void {
+  if (item.quantity) {
+    playerStore.seedAPlant({ plantTypeId: plantTypeId, id: item.id });
+  }
 }
 </script>
 
 <template>
   <div
+    @click="seedAPlant"
     class="flex flex-col items-center justify-between gap-2 p-2 rounded"
     :class="{
       'hover:bg-green-50 transition-colors cursor-pointer': item.quantity
