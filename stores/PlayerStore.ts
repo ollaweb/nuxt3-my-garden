@@ -2,10 +2,8 @@ import { defineStore } from 'pinia';
 import { useLocalStorage } from '@vueuse/core';
 import type {
   Player,
-  PlayerPlantType,
-  PlayerItemsType,
-  StorePlantType,
-  StoreItemsType
+  PlantType,
+  Plant,
 } from '~/types';
 import type { InputQuantityPayload, SeedingPlant } from '~/types/UI';
 import { usePlantsStore } from '@/stores/PlantsStore';
@@ -56,7 +54,7 @@ export const usePlayerStore = defineStore('PlayerStore', {
         ].items.findIndex(item => item.id == id);
     },
     findPlantById: state => {
-      return (plantTypeId: number, id: number): PlayerItemsType =>
+      return (plantTypeId: number, id: number): Plant =>
         state.player.stock[
           state.player.stock.findIndex(item => item.id == plantTypeId)
         ].items[
@@ -85,12 +83,12 @@ export const usePlayerStore = defineStore('PlayerStore', {
       const plantsStore = usePlantsStore();
 
       //find PlantType in store
-      const newPlantType: StorePlantType[] = plantsStore.plants.store.filter(
+      const newPlantType: PlantType[] = plantsStore.plants.filter(
         item => item.id == payload.plantTypeId
       );
 
       //find a plant in that PlantType
-      const newPlant: StoreItemsType[] = newPlantType[0].items.filter(
+      const newPlant: Plant[] = newPlantType[0].items.filter(
         item => item.id == payload.id
       );
 
@@ -111,7 +109,7 @@ export const usePlayerStore = defineStore('PlayerStore', {
         -1
       ) {
         //then create new PlantType and put inside the plant
-        const newTypeItem: PlayerPlantType = {
+        const newTypeItem: PlantType = {
           id: newPlantType[0].id,
           name: newPlantType[0].name,
           items: [plantToCollect]
@@ -136,9 +134,12 @@ export const usePlayerStore = defineStore('PlayerStore', {
           this.player.stock[existingPlantTypeIndex].items.push(plantToCollect);
         } else {
           //if there is such a plant, so we need to add quantity to existing quantity
-          this.player.stock[existingPlantTypeIndex].items[
+          const existingPlant = this.player.stock[existingPlantTypeIndex].items[
             existingPlantIndex
-          ].quantity += payload.quantity;
+          ];
+          if(typeof existingPlant.quantity === 'number') {
+            existingPlant.quantity += payload.quantity;
+          }
         }
       }
     },
@@ -153,7 +154,10 @@ export const usePlayerStore = defineStore('PlayerStore', {
     },
     seedAPlant(payload: SeedingPlant) {
       //decrement quantity when seeding a plant
-      --this.findPlantById(payload.plantTypeId, payload.id).quantity;
+      const plant = this.findPlantById(payload.plantTypeId, payload.id);
+      if(typeof plant.quantity === 'number') {
+        --plant.quantity;
+      }
 
       //set store sate of timeOfGrowing
       this.setTimeOfGrowingWhenSeedAPlant(payload);

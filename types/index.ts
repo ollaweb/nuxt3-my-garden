@@ -5,7 +5,7 @@ export interface Player {
   coins: number;
   stageOfGrowing: number;
   timeTillHarvest: number;
-  stock: PlayerPlantType[];
+  stock: PlantType[];
 }
 
 interface Level {
@@ -14,41 +14,23 @@ interface Level {
   pointsToTheNextLevel: number;
 }
 
-export interface PlayerPlantType {
+export interface PlantType {
   id: number;
   name: string;
-  items: PlayerItemsType[];
+  items: Plant[];
 }
 
-export interface PlayerItemsType {
+export interface Plant {
   id: number;
   name: string;
   image: string;
-  quantity: number;
   timeOfGrowing: number;
   moneyToEarn: number;
+  quantity?: number;
+  price?: number
 }
 
 export interface Weather {
   name: string;
   time: number;
-}
-
-export interface Store {
-  store: StorePlantType[];
-}
-
-export interface StorePlantType {
-  id: number;
-  name: string;
-  items: StoreItemsType[];
-}
-
-export interface StoreItemsType {
-  id: number;
-  name: string;
-  image: string;
-  timeOfGrowing: number;
-  moneyToEarn: number;
-  price: number;
 }

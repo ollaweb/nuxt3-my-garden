@@ -34,5 +34,5 @@ const tab = ref('stock');
     :store="playerStore.player.stock"
     :stage-of-growing="playerStore.player.stageOfGrowing"
   />
-  <SeedsList v-show="tab == 'store'" :store="plantsStore.plants.store" />
+  <SeedsList v-show="tab == 'store'" :store="plantsStore.plants" />
 </template>

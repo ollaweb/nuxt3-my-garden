@@ -1,9 +1,8 @@
 import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core'
-import type { Store } from '~/types'
+import { PlantType } from '~/types'
 
-const startPlantsStore: Store = {
-  store: [
+const startPlantsStore: PlantType[] = [
     {
       id: 1,
       name: 'flowers',
@@ -41,7 +40,6 @@ const startPlantsStore: Store = {
       ]
     }
   ]
-}
 
 export const usePlantsStore = defineStore('PlantsStore', {
   state: () => ({
