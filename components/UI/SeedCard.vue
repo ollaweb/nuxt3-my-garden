@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import InputQuantity from './InputQuantity.vue';
-import type { InputQuantityPayload } from '~/types/UI';
 import { usePlayerStore } from '@/stores/PlayerStore';
+import { useStockStore } from '@/stores/StockStore';
+import { useGrowingPlantStore } from '@/stores/GrowingPlantStore';
 import { timeInSecondsAndMinutes } from '~/helpers/timeInSecondsAndMinutes';
-
-const playerStore = usePlayerStore();
+import { PropType } from 'vue';
+import type { Plant } from '~/types';
 
 const { item, plantTypeId } = defineProps({
   item: {
-    type: Object,
+    type: Object as PropType<Plant>,
     required: true
   },
   plantTypeId: {
@@ -19,20 +20,29 @@ const { item, plantTypeId } = defineProps({
 
 const timeOfGrowing = timeInSecondsAndMinutes(item.timeOfGrowing);
 
-function setQuantity(payload: InputQuantityPayload): void {
-  const data = {
-    ...payload,
-    plantTypeId: plantTypeId
-  };
-  playerStore.addPlantToStock(data);
+function addPlantToStock(payload: {
+  id: number;
+  quantity: number;
+  totalPrice: number;
+}): void {
+  useStockStore().addPlantToStock({
+    plantTypeId: plantTypeId,
+    id: payload.id,
+    quantity: payload.quantity
+  });
+  usePlayerStore().decrementCoins(payload.totalPrice);
+  usePlayerStore().incrementLevelPoints(payload.totalPrice);
 }
 
-const emit = defineEmits(['seedAPlant']);
-
 function seedAPlant(): void {
-  if (item.quantity) {
-    playerStore.seedAPlant({ plantTypeId: plantTypeId, id: item.id });
-    emit('seedAPlant', { plantTypeId: plantTypeId, id: item.id });
+  if (typeof item.quantity !== 'undefined') {
+    useStockStore().decrementPlantFromStock({
+      plantTypeId: plantTypeId,
+      id: item.id
+    });
+    usePlayerStore().incrementLevelPoints(item.moneyToEarn * 3);
+    useGrowingPlantStore().updateStateOfGrowing();
+    useGrowingPlantStore().seedAPlant(item);
   }
 }
 </script>
@@ -106,10 +116,10 @@ function seedAPlant(): void {
       </div>
       <div v-else class="mt-2">
         <InputQuantity
-          :coins="playerStore.player.coins"
-          :price="item.price"
+          :coins="usePlayerStore().player.coins"
+          :price="typeof item.price !== 'undefined' ? item.price : 0"
           :id="item.id"
-          @set-quantity="setQuantity"
+          @add-plant-to-stock="addPlantToStock"
         />
       </div>
     </div>

@@ -1,26 +1,24 @@
 <script setup lang="ts">
 import { timeInSecondsAndMinutes } from '~/helpers/timeInSecondsAndMinutes';
+import { useGrowingPlantStore } from '@/stores/GrowingPlantStore';
 
-const { timeOfGrowing } = defineProps({
-  timeOfGrowing: {
-    type: Number,
-    required: true
-  }
-});
+let currentTime = new Date().getTime();
+const computedTimeTillHarvest =
+  useGrowingPlantStore().growingPlant.plant.timeOfGrowing + currentTime;
+useGrowingPlantStore().updateTimeTillHarvest(computedTimeTillHarvest);
 
-let timeTillHarvest = ref(timeOfGrowing);
+let timeTillHarvest = ref(useGrowingPlantStore().getTimeTillHarvest);
+
 let time = computed(() => {
-  return timeInSecondsAndMinutes(timeTillHarvest.value);
+  return timeInSecondsAndMinutes(timeTillHarvest.value - currentTime);
 });
-
-const emit = defineEmits(['updateTimeOfGrowing']);
 
 let timerInterval: any;
 
 onMounted(() => {
   timerInterval = setInterval(() => {
     timeTillHarvest.value -= 1000;
-    emit('updateTimeOfGrowing', timeTillHarvest.value);
+    useGrowingPlantStore().updateTimeTillHarvest(timeTillHarvest.value);
   }, 1000);
 });
 
@@ -28,7 +26,6 @@ watch(
   () => timeTillHarvest.value,
   (newValue, oldValue) => {
     if (newValue == 0) {
-      console.log('its zero');
       clearInterval(timerInterval);
     }
   }
@@ -37,8 +34,12 @@ watch(
 
 <template>
   <div class="flex text-xl font-medium text-green-800">
-    <div class="minutes">{{ time.minutes }}</div>
+    <div class="minutes">
+      {{ time.minutes }}
+    </div>
     :
-    <div class="seconds">{{ time.seconds }}</div>
+    <div class="seconds">
+      {{ time.seconds }}
+    </div>
   </div>
 </template>

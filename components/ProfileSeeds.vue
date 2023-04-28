@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import SeedsList from './UI/SeedsList.vue';
 
-import { usePlayerStore } from '@/stores/PlayerStore';
+import { useStockStore } from '@/stores/StockStore';
 import { usePlantsStore } from '@/stores/PlantsStore';
 
-const playerStore = usePlayerStore();
 const plantsStore = usePlantsStore();
+const stockStore = useStockStore();
 
 const tab = ref('stock');
 </script>
@@ -29,10 +29,6 @@ const tab = ref('stock');
       Store
     </li>
   </ul>
-  <SeedsList
-    v-show="tab == 'stock'"
-    :store="playerStore.player.stock"
-    :stage-of-growing="playerStore.player.stageOfGrowing"
-  />
-  <SeedsList v-show="tab == 'store'" :store="plantsStore.plants" />
+  <SeedsList v-show="tab == 'stock'" :tab="tab" :store="stockStore.stock" />
+  <SeedsList v-show="tab == 'store'" :tab="tab" :store="plantsStore.plants" />
 </template>

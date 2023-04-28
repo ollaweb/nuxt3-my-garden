@@ -3,9 +3,6 @@ export interface Player {
   newPlayer: boolean;
   level: Level;
   coins: number;
-  stageOfGrowing: number;
-  timeTillHarvest: number;
-  stock: PlantType[];
 }
 
 interface Level {
@@ -27,7 +24,7 @@ export interface Plant {
   timeOfGrowing: number;
   moneyToEarn: number;
   quantity?: number;
-  price?: number
+  price?: number;
 }
 
 export interface Weather {

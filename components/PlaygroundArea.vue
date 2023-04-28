@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { usePlayerStore } from '@/stores/PlayerStore';
+import { useGrowingPlantStore } from '@/stores/GrowingPlantStore';
 import type { Weather } from '~/types';
 
-const playerStore = usePlayerStore();
+const growingPlantStore = useGrowingPlantStore();
 
 let weather: Weather = reactive({
   name: 'sun',
@@ -215,7 +215,7 @@ let weather: Weather = reactive({
     <div class="flex items-end justify-around">
       <div class="pot">
         <svg
-          v-if="playerStore.player.stageOfGrowing == 0"
+          v-if="growingPlantStore.growingPlant.stageOfGrowing == 0"
           width="117"
           height="143"
           viewBox="0 0 117 143"
@@ -236,7 +236,7 @@ let weather: Weather = reactive({
           />
         </svg>
         <svg
-          v-if="playerStore.player.stageOfGrowing == 1"
+          v-if="growingPlantStore.growingPlant.stageOfGrowing == 1"
           width="117"
           height="143"
           viewBox="0 0 117 143"
@@ -261,7 +261,7 @@ let weather: Weather = reactive({
           />
         </svg>
         <svg
-          v-if="playerStore.player.stageOfGrowing == 2"
+          v-if="growingPlantStore.growingPlant.stageOfGrowing == 2"
           width="117"
           height="143"
           viewBox="0 0 117 143"
@@ -303,7 +303,7 @@ let weather: Weather = reactive({
           </defs>
         </svg>
         <svg
-          v-if="playerStore.player.stageOfGrowing == 3"
+          v-if="growingPlantStore.growingPlant.stageOfGrowing == 3"
           width="117"
           height="151"
           viewBox="0 0 117 151"
@@ -345,7 +345,7 @@ let weather: Weather = reactive({
           </defs>
         </svg>
         <svg
-          v-if="playerStore.player.stageOfGrowing == 4"
+          v-if="growingPlantStore.growingPlant.stageOfGrowing == 4"
           width="117"
           height="162"
           viewBox="0 0 117 162"
@@ -388,7 +388,7 @@ let weather: Weather = reactive({
           </defs>
         </svg>
         <svg
-          v-if="playerStore.player.stageOfGrowing == 5"
+          v-if="growingPlantStore.growingPlant.stageOfGrowing == 5"
           width="117"
           height="203"
           viewBox="0 0 117 203"
@@ -427,7 +427,7 @@ let weather: Weather = reactive({
           </defs>
         </svg>
         <svg
-          v-if="playerStore.player.stageOfGrowing == 6"
+          v-if="growingPlantStore.growingPlant.stageOfGrowing == 6"
           width="117"
           height="250"
           viewBox="0 0 117 250"
@@ -466,7 +466,7 @@ let weather: Weather = reactive({
           </defs>
         </svg>
         <svg
-          v-if="playerStore.player.stageOfGrowing == 7"
+          v-if="growingPlantStore.growingPlant.stageOfGrowing == 7"
           width="117"
           height="304"
           viewBox="0 0 117 304"
@@ -517,7 +517,7 @@ let weather: Weather = reactive({
           </defs>
         </svg>
         <svg
-          v-if="playerStore.player.stageOfGrowing == 8"
+          v-if="growingPlantStore.growingPlant.stageOfGrowing == 8"
           width="117"
           height="383"
           viewBox="0 0 117 383"

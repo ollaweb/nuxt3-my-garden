@@ -24,6 +24,7 @@ const payload = {
   quantity: quantity.value,
   totalPrice: totalPrice.value
 };
+
 watch(
   () => quantity.value,
   (newQuantity, oldQuantity) => {
@@ -41,10 +42,10 @@ watch(
   }
 );
 
-const emit = defineEmits(['setQuantity']);
+const emit = defineEmits(['addPlantToStock']);
 
 function handleSubmitQuantity(): void {
-  emit('setQuantity', payload);
+  emit('addPlantToStock', payload);
   quantity.value = 1;
 }
 </script>

@@ -1,50 +1,63 @@
-import { defineStore } from 'pinia'
-import { useLocalStorage } from '@vueuse/core'
-import { PlantType } from '~/types'
+import { defineStore } from 'pinia';
+import { useLocalStorage } from '@vueuse/core';
+import { PlantType, Plant } from '~/types';
 
 const startPlantsStore: PlantType[] = [
-    {
-      id: 1,
-      name: 'flowers',
-      items: [
-        {
-          id: 1,
-          name: 'Magic Flower',
-          image: '/images/store/flowers/1.svg',
-          timeOfGrowing: 120000,
-          moneyToEarn: 5,
-          price: 3
-        },
-        {
-          id: 2,
-          name: 'Sunny Flower',
-          image: '/images/store/flowers/2.svg',
-          timeOfGrowing: 150000,
-          moneyToEarn: 8,
-          price: 4
-        }
-      ]
-    },
-    {
-      id: 2,
-      name: 'fruits',
-      items: [
-        {
-          id: 1,
-          name: 'Apple',
-          image: '/images/store/flowers/1.svg',
-          timeOfGrowing: 3000000,
-          moneyToEarn: 25,
-          price: 15
-        }
-      ]
-    }
-  ]
+  {
+    id: 1,
+    name: 'flowers',
+    items: [
+      {
+        id: 1,
+        name: 'Magic Flower',
+        image: '/images/store/flowers/1.svg',
+        timeOfGrowing: 60000,
+        moneyToEarn: 5,
+        price: 3
+      },
+      {
+        id: 2,
+        name: 'Sunny Flower',
+        image: '/images/store/flowers/2.svg',
+        timeOfGrowing: 80000,
+        moneyToEarn: 8,
+        price: 4
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: 'fruits',
+    items: [
+      {
+        id: 1,
+        name: 'Apple',
+        image: '/images/store/flowers/1.svg',
+        timeOfGrowing: 3000000,
+        moneyToEarn: 25,
+        price: 15
+      }
+    ]
+  }
+];
 
 export const usePlantsStore = defineStore('PlantsStore', {
   state: () => ({
-    plants: useLocalStorage('my-garden-app-store', startPlantsStore, {
-      mergeDefaults: true
-    })
-  })
-})
+    // plants: useLocalStorage('my-garden-app-store', startPlantsStore, {
+    //   mergeDefaults: true
+    // })
+    plants: startPlantsStore
+  }),
+  getters: {
+    getPlantTypeById: state => {
+      return (plantTypeId: number): PlantType =>
+        state.plants.filter(item => item.id == plantTypeId)[0];
+    },
+    getPlantInPlantTypeById: state => {
+      return (plantTypeId: number, id: number): Plant =>
+        state.plants
+          .filter(plantType => plantType.id == plantTypeId)[0]
+          .items.filter(item => item.id == id)[0];
+    }
+  }
+});
