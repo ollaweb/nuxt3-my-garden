@@ -11,7 +11,8 @@ const startStockStore: PlantType[] = [
       {
         id: 1,
         name: 'Magic Flower',
-        image: '/images/store/flowers/1.svg',
+        thumbnail: '/images/store/flowers/1.svg',
+        images: [],
         quantity: 2,
         timeOfGrowing: 60000,
         moneyToEarn: 5
@@ -60,7 +61,8 @@ export const useStockStore = defineStore('StockStore', {
       const newPlant: Plant = {
         id: plantFromStore.id,
         name: plantFromStore.name,
-        image: plantFromStore.image,
+        thumbnail: plantFromStore.thumbnail,
+        images: plantFromStore.images,
         quantity: payload.quantity,
         timeOfGrowing: plantFromStore.timeOfGrowing,
         moneyToEarn: plantFromStore.moneyToEarn

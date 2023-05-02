@@ -11,7 +11,8 @@ const initialState: {
   plant: {
     id: 0,
     name: '',
-    image: '',
+    thumbnail: '',
+    images: [],
     timeOfGrowing: 0,
     moneyToEarn: 0
   },

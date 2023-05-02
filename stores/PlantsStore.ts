@@ -10,7 +10,8 @@ const startPlantsStore: PlantType[] = [
       {
         id: 1,
         name: 'Magic Flower',
-        image: '/images/store/flowers/1.svg',
+        thumbnail: '/images/store/flowers/1.svg',
+        images: [],
         timeOfGrowing: 60000,
         moneyToEarn: 5,
         price: 3
@@ -18,7 +19,8 @@ const startPlantsStore: PlantType[] = [
       {
         id: 2,
         name: 'Sunny Flower',
-        image: '/images/store/flowers/2.svg',
+        thumbnail: '/images/store/flowers/2.svg',
+        images: [],
         timeOfGrowing: 80000,
         moneyToEarn: 8,
         price: 4
@@ -32,7 +34,8 @@ const startPlantsStore: PlantType[] = [
       {
         id: 1,
         name: 'Apple',
-        image: '/images/store/flowers/1.svg',
+        thumbnail: '/images/store/flowers/1.svg',
+        images: [],
         timeOfGrowing: 3000000,
         moneyToEarn: 25,
         price: 15

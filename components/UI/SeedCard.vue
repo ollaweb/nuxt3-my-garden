@@ -56,7 +56,7 @@ function seedAPlant(): void {
     }"
   >
     <div>
-      <img :src="item.image" alt="picture of flower" />
+      <img :src="item.thumbnail" alt="picture of flower" />
     </div>
     <h4 class="font-bold text-sm">{{ item.name }}</h4>
     <div class="flex flex-col gap-1 w-full text-sm">

@@ -20,7 +20,8 @@ export interface PlantType {
 export interface Plant {
   id: number;
   name: string;
-  image: string;
+  thumbnail: string;
+  images: [];
   timeOfGrowing: number;
   moneyToEarn: number;
   quantity?: number;
