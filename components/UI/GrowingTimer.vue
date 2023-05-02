@@ -29,6 +29,10 @@ const timeToSwitchToStage8 =
 
 const emit = defineEmits(['finishGrowing']);
 
+if (time.value.minutes == '00' && time.value.seconds == '00') {
+  emit('finishGrowing');
+}
+
 onMounted(() => {
   if (
     !(
