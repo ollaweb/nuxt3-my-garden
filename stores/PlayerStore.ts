@@ -45,6 +45,18 @@ export const usePlayerStore = defineStore('PlayerStore', {
     },
     incrementLevelPoints(points: number) {
       this.player.level.levelPoints += points;
+      if (
+        this.player.level.levelPoints >= this.player.level.pointsToTheNextLevel
+      ) {
+        this.incrementLevel();
+      }
+    },
+    incrementLevel() {
+      const levelPointsTail =
+        this.player.level.levelPoints - this.player.level.pointsToTheNextLevel;
+      ++this.player.level.number;
+      this.player.level.pointsToTheNextLevel *= 2;
+      this.player.level.levelPoints = levelPointsTail;
     }
   }
 });
