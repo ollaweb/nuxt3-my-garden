@@ -21,7 +21,7 @@ export interface Plant {
   id: number;
   name: string;
   thumbnail: string;
-  images: [];
+  images: PlantImages | [];
   timeOfGrowing: number;
   moneyToEarn: number;
   quantity?: number;
@@ -32,3 +32,15 @@ export interface Weather {
   name: string;
   time: number;
 }
+
+type PlantImages = [
+  null,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string
+];

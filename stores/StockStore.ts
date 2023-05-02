@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { Plant, PlantType } from '~/types';
 import { useLocalStorage } from '@vueuse/core';
 import { usePlantsStore } from '@/stores/PlantsStore';
+import { flowerImages, magicFlowerImages } from '~/seeders/flowerImages';
 
 const startStockStore: PlantType[] = [
   {
@@ -12,7 +13,17 @@ const startStockStore: PlantType[] = [
         id: 1,
         name: 'Magic Flower',
         thumbnail: '/images/store/flowers/1.svg',
-        images: [],
+        images: [
+          null,
+          flowerImages[1],
+          flowerImages[2],
+          flowerImages[3],
+          flowerImages[4],
+          flowerImages[5],
+          flowerImages[6],
+          magicFlowerImages[7],
+          magicFlowerImages[8]
+        ],
         quantity: 2,
         timeOfGrowing: 60000,
         moneyToEarn: 5
