@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { Plant, PlantType } from '~/types';
-
+import { useLocalStorage } from '@vueuse/core';
 import { usePlantsStore } from '@/stores/PlantsStore';
 
 const startStockStore: PlantType[] = [
@@ -22,8 +22,7 @@ const startStockStore: PlantType[] = [
 
 export const useStockStore = defineStore('StockStore', {
   state: () => ({
-    // stock: useLocalStorage('my-garden-app-stock', startStockStore)
-    stock: startStockStore
+    stock: useLocalStorage('my-garden-app-stock', startStockStore)
   }),
   getters: {
     getStock: state => state.stock,
@@ -39,6 +38,9 @@ export const useStockStore = defineStore('StockStore', {
     }
   },
   actions: {
+    resetStore() {
+      this.stock = startStockStore;
+    },
     addPlantToStock(payload: {
       plantTypeId: number;
       id: number;

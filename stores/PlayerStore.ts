@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { useLocalStorage } from '@vueuse/core';
+import { useStockStore } from './StockStore';
 import type { Player } from '~/types';
 
 const startPlayer: Player = {
@@ -15,18 +16,21 @@ const startPlayer: Player = {
 
 export const usePlayerStore = defineStore('PlayerStore', {
   state: () => ({
-    // player: useLocalStorage('my-garden-app-player', startPlayer)
-    player: startPlayer
+    player: useLocalStorage('my-garden-app-player', startPlayer)
   }),
   getters: {
     isNewPlayer: state => state.player.newPlayer
   },
   actions: {
     changePlayerState() {
-      this.player.newPlayer = !this.player.newPlayer;
-
-      // localStorage.removeItem('my-garden-app-player');
-      // useLocalStorage('my-garden-app-player', startPlayer);
+      if (this.player.newPlayer === true) {
+        this.player.newPlayer = false;
+      } else {
+        localStorage.removeItem('my-garden-app-player');
+        this.player.newPlayer = true;
+        useStockStore().resetStore();
+        this.player = startPlayer;
+      }
     },
     setPlayerName(name: string) {
       this.player.name = name.trim();

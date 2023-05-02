@@ -43,9 +43,6 @@ const startPlantsStore: PlantType[] = [
 
 export const usePlantsStore = defineStore('PlantsStore', {
   state: () => ({
-    // plants: useLocalStorage('my-garden-app-store', startPlantsStore, {
-    //   mergeDefaults: true
-    // })
     plants: startPlantsStore
   }),
   getters: {

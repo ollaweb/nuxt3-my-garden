@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia';
+import { useLocalStorage } from '@vueuse/core';
+
 import type { Plant } from '~/types';
 
 const initialState: {
@@ -19,14 +21,17 @@ const initialState: {
 
 export const useGrowingPlantStore = defineStore('GrowingPlantStore', {
   state: () => ({
-    growingPlant: initialState
+    growingPlant: useLocalStorage('my-garden-app-growing-plant', initialState)
   }),
   getters: {
     getGrowingPlantInfo: state => state.growingPlant,
     getTimeTillHarvest: state => state.growingPlant.timeTillHarvest
   },
   actions: {
-    updateStateOfGrowing() {
+    resetStore() {
+      this.growingPlant = initialState;
+    },
+    updateStageOfGrowing() {
       this.growingPlant.stageOfGrowing = 1;
     },
     seedAPlant(plant: Plant) {
