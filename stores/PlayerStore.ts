@@ -37,7 +37,9 @@ export const usePlayerStore = defineStore('PlayerStore', {
     setPlayerName(name: string) {
       this.player.name = name.trim();
     },
-    incrementCoins() {},
+    incrementCoins(amount: number) {
+      this.player.coins += amount;
+    },
     decrementCoins(totalPrice: number) {
       this.player.coins -= totalPrice;
     },
