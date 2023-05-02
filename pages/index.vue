@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import PopUp from '~/components/UI/PopUp.vue'
-import { usePlayerStore } from '~/stores/PlayerStore'
-const playerStore = usePlayerStore()
+import PopUp from '~/components/UI/PopUp.vue';
+import { usePlayerStore } from '~/stores/PlayerStore';
+const playerStore = usePlayerStore();
 </script>
 
 <template>
@@ -115,5 +115,6 @@ const playerStore = usePlayerStore()
       </div>
     </div>
   </section>
-  <PopUp />
+  <GetName />
+  <LevelUp />
 </template>
