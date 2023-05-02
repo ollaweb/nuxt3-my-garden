@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { useLocalStorage } from '@vueuse/core';
 import { useStockStore } from './StockStore';
+import { useGrowingPlantStore } from './GrowingPlantStore';
 import type { Player } from '~/types';
 
 const startPlayer: Player = {
@@ -29,6 +30,7 @@ export const usePlayerStore = defineStore('PlayerStore', {
         localStorage.removeItem('my-garden-app-player');
         this.player.newPlayer = true;
         useStockStore().resetStore();
+        useGrowingPlantStore().resetStore();
         this.player = startPlayer;
       }
     },

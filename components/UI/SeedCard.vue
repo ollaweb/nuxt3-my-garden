@@ -41,7 +41,7 @@ function seedAPlant(): void {
       id: item.id
     });
     usePlayerStore().incrementLevelPoints(item.moneyToEarn * 3);
-    useGrowingPlantStore().updateStateOfGrowing();
+    useGrowingPlantStore().updateStageOfGrowing(1);
     useGrowingPlantStore().seedAPlant(item);
   }
 }

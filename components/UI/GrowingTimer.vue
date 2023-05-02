@@ -3,10 +3,6 @@ import { timeInSecondsAndMinutes } from '~/helpers/timeInSecondsAndMinutes';
 import { useGrowingPlantStore } from '@/stores/GrowingPlantStore';
 
 let currentTime = new Date().getTime();
-const computedTimeTillHarvest =
-  useGrowingPlantStore().growingPlant.plant.timeOfGrowing + currentTime;
-useGrowingPlantStore().updateTimeTillHarvest(computedTimeTillHarvest);
-
 let timeTillHarvest = ref(useGrowingPlantStore().getTimeTillHarvest);
 
 let time = computed(() => {
@@ -16,20 +12,30 @@ let time = computed(() => {
 let timerInterval: any;
 
 onMounted(() => {
-  timerInterval = setInterval(() => {
-    timeTillHarvest.value -= 1000;
-    useGrowingPlantStore().updateTimeTillHarvest(timeTillHarvest.value);
-  }, 1000);
+  if (
+    !(
+      Math.floor(timeTillHarvest.value / 100) - Math.floor(currentTime / 100) <=
+      10
+    )
+  ) {
+    timerInterval = setInterval(() => {
+      timeTillHarvest.value -= 1000;
+    }, 1000);
+  }
 });
 
 watch(
   () => timeTillHarvest.value,
   (newValue, oldValue) => {
-    if (newValue == 0) {
+    if (Math.floor(newValue / 100) - Math.floor(currentTime / 100) <= 10) {
       clearInterval(timerInterval);
     }
   }
 );
+
+onBeforeUnmount(() => {
+  clearInterval(timerInterval);
+});
 </script>
 
 <template>

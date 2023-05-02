@@ -39,6 +39,7 @@ export const useStockStore = defineStore('StockStore', {
   },
   actions: {
     resetStore() {
+      localStorage.removeItem('my-garden-app-stock');
       this.stock = startStockStore;
     },
     addPlantToStock(payload: {
