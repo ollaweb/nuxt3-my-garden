@@ -2,11 +2,11 @@
 import { timeInSecondsAndMinutes } from '~/helpers/timeInSecondsAndMinutes';
 import { useGrowingPlantStore } from '@/stores/GrowingPlantStore';
 
-let currentTime = new Date().getTime();
-let timeTillHarvest = ref(useGrowingPlantStore().getTimeTillHarvest);
+let currentTime = ref(new Date().getTime());
+let timeTillHarvest = useGrowingPlantStore().getTimeTillHarvest;
 
 let time = computed(() => {
-  return timeInSecondsAndMinutes(timeTillHarvest.value - currentTime);
+  return timeInSecondsAndMinutes(timeTillHarvest - currentTime.value);
 });
 
 let timerInterval: any;
@@ -14,20 +14,20 @@ let timerInterval: any;
 onMounted(() => {
   if (
     !(
-      Math.floor(timeTillHarvest.value / 100) - Math.floor(currentTime / 100) <=
+      Math.floor(timeTillHarvest / 100) - Math.floor(currentTime.value / 100) <=
       10
     )
   ) {
     timerInterval = setInterval(() => {
-      timeTillHarvest.value -= 1000;
+      currentTime.value = new Date().getTime();
     }, 1000);
   }
 });
 
 watch(
-  () => timeTillHarvest.value,
+  () => currentTime.value,
   (newValue, oldValue) => {
-    if (Math.floor(newValue / 100) - Math.floor(currentTime / 100) <= 10) {
+    if (Math.floor(timeTillHarvest / 100) - Math.floor(newValue / 100) <= 10) {
       clearInterval(timerInterval);
     }
   }
