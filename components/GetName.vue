@@ -4,10 +4,16 @@ import { usePlayerStore } from '@/stores/PlayerStore';
 const playerStore = usePlayerStore();
 
 const name = ref('');
+const showError = ref(false);
 
 function handleSubmit(payload: string): void {
-  playerStore.setPlayerName(payload);
-  name.value = '';
+  if (payload.trim().length == 0) {
+    showError.value = true;
+  } else {
+    playerStore.setPlayerName(payload);
+    name.value = '';
+    showError.value = false;
+  }
 }
 </script>
 
@@ -29,7 +35,11 @@ function handleSubmit(payload: string): void {
           class="absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >Your name</label
         >
+        <p v-show="showError" class="mt-1 text-xs text-red-500">
+          Please enter your name to continue
+        </p>
       </div>
+
       <button
         type="submit"
         class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"

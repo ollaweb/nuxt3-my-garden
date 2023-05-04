@@ -107,7 +107,7 @@ const playerStore = usePlayerStore();
       <div v-else v-show="playerStore.player.name" class="flex w-full gap-16">
         <div class="playground basis-3/5">
           <PlaygroundArea />
-          <PlaygroundButtons />
+          <!-- <PlaygroundButtons /> -->
         </div>
         <div class="controls basis-2/5">
           <ProfileControls />
