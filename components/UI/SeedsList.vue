@@ -2,10 +2,12 @@
 import SeedCard from '@/components/UI/SeedCard.vue';
 import { useGrowingPlantStore } from '@/stores/GrowingPlantStore';
 import { useStockStore } from '@/stores/StockStore';
+import { PropType } from 'vue';
+import type { PlantType } from '~/types';
 
 const props = defineProps({
   store: {
-    type: Object,
+    type: Object as PropType<PlantType[]>,
     required: true
   },
   tab: {
