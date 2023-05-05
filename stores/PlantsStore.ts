@@ -51,21 +51,6 @@ const startPlantsStore: PlantType[] = [
         price: 4
       }
     ]
-  },
-  {
-    id: 2,
-    name: 'fruits',
-    items: [
-      {
-        id: 1,
-        name: 'Apple',
-        thumbnail: '/images/store/flowers/1.svg',
-        images: [],
-        timeOfGrowing: 3000000,
-        moneyToEarn: 25,
-        price: 15
-      }
-    ]
   }
 ];
 

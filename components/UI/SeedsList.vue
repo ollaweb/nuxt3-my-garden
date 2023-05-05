@@ -28,14 +28,14 @@ const props = defineProps({
   </div>
   <div
     v-else-if="useStockStore().stock.length == 0 && tab == 'stock'"
-    class="mt-4"
+    class="mt-4 text-sm lg:text-base"
   >
     You don't have any seeds to plant. Please, visit the Store.
   </div>
   <div v-else>
     <div v-for="plantType in props.store" :key="plantType.id">
-      <div class="mt-4 pb-2">
-        <i class="text-gray-500">{{ plantType.name }}</i>
+      <div class="pb-2">
+        <i class="text-gray-500 text-sm lg:text-base">{{ plantType.name }}</i>
         <div class="mt-1 grid grid-cols-3 gap-4">
           <SeedCard
             v-for="item in plantType.items"

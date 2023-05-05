@@ -4,7 +4,7 @@ const playerStore = usePlayerStore();
 </script>
 
 <template>
-  <div class="flex items-center gap-2">
+  <div class="flex items-center gap-2 text-sm lg:text-base">
     coins
     <div class="flex items-center gap-1">
       {{ playerStore.player.coins }}
@@ -12,7 +12,7 @@ const playerStore = usePlayerStore();
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        class="w-6 h-6 fill-green-700"
+        class="w-5 h-5 lg:w-6 lg:h-6 fill-green-700"
       >
         <path
           d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 01-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004zM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 01-.921.42z"

@@ -56,7 +56,7 @@ function handleSubmitQuantity(): void {
       <button
         @click="quantity--"
         type="button"
-        class="focus:outline-none text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-3 py-1 disabled:bg-gray-500 disabled:cursor-not-allowed"
+        class="focus:outline-none text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-2 xl:px-3 py-1 disabled:bg-gray-500 disabled:cursor-not-allowed"
         :disabled="quantity <= 1"
       >
         -
@@ -70,7 +70,7 @@ function handleSubmitQuantity(): void {
       <button
         @click="quantity++"
         type="button"
-        class="focus:outline-none text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-3 py-1"
+        class="focus:outline-none text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-2 xl:px-3 py-1"
       >
         +
       </button>
@@ -80,7 +80,7 @@ function handleSubmitQuantity(): void {
       <button
         @click="handleSubmitQuantity"
         type="button"
-        class="flex flex-wrap gap-1 focus:outline-none text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm pl-3 pr-2 py-1.5 disabled:bg-gray-500 disabled:cursor-not-allowed"
+        class="flex flex-wrap gap-1 focus:outline-none text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-xs xl:text-sm pl-3 pr-2 py-1.5 disabled:bg-gray-500 disabled:cursor-not-allowed"
         :disabled="props.coins < totalPrice"
       >
         Buy for
@@ -92,7 +92,7 @@ function handleSubmitQuantity(): void {
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="w-5 h-5"
+            class="w-4 h-4 xl:w-5 xl:h-5"
           >
             <path
               stroke-linecap="round"

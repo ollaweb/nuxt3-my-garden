@@ -5,18 +5,16 @@ const playerStore = usePlayerStore();
 </script>
 
 <template>
-  <section class="flex grow">
-    <div
-      class="w-full mx-auto max-w-screen-xl px-4 py-8 flex justify-center grow"
-    >
+  <section class="h-full">
+    <div class="w-full h-full mx-auto max-w-screen-xl px-4 py-2">
       <div
         v-if="playerStore.isNewPlayer"
-        class="flex flex-col items-center justify-center"
+        class="h-full overflow-y-auto flex flex-col items-center justify-center"
       >
-        <h1 class="text-green-600 font-bold text-4xl text-center">
+        <h1 class="text-green-600 font-bold text-xl xl:text-4xl text-center">
           Welcome to My Garden App
         </h1>
-        <h2 class="mt-4 text-green-800 text-xl">Grow your own garden!</h2>
+        <h2 class="mt-4 text-green-800 xl:text-xl">Grow your own garden!</h2>
         <div class="mt-4">
           <svg
             width="162"
@@ -24,7 +22,7 @@ const playerStore = usePlayerStore();
             viewBox="0 0 162 428"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            class="h-48"
+            class="h-28 xl:h-48"
           >
             <path
               d="M154.53 405.03H11.9399V427.62H154.53V405.03Z"
@@ -104,12 +102,16 @@ const playerStore = usePlayerStore();
         </button>
       </div>
 
-      <div v-else v-show="playerStore.player.name" class="flex w-full gap-16">
-        <div class="playground basis-3/5">
+      <div
+        v-else
+        v-show="playerStore.player.name"
+        class="flex w-full h-full gap-8 xl:gap-16"
+      >
+        <div class="playground basis-2/5 md:basis-1/2 lg:basis-3/5 h-full">
           <PlaygroundArea />
           <!-- <PlaygroundButtons /> -->
         </div>
-        <div class="controls basis-2/5">
+        <div class="controls basis-3/5 md:basis-1/2 lg:basis-2/5 h-full">
           <ProfileControls />
         </div>
       </div>
@@ -117,4 +119,5 @@ const playerStore = usePlayerStore();
   </section>
   <GetName />
   <LevelUp />
+  <NeedToRotateTheScreen />
 </template>

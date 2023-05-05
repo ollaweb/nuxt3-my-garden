@@ -50,16 +50,20 @@ function seedAPlant(): void {
 <template>
   <div
     @click="seedAPlant"
-    class="flex flex-col items-center justify-between gap-2 p-2 rounded"
+    class="flex flex-col items-center justify-between gap-2 p-2 rounded text-xs xl:text-sm"
     :class="{
       'hover:bg-green-50 transition-colors cursor-pointer': item.quantity
     }"
   >
     <div>
-      <img :src="item.thumbnail" alt="picture of flower" />
+      <img
+        :src="item.thumbnail"
+        alt="picture of flower"
+        class="w-12 h-12 xl:w-16 xl:h-16"
+      />
     </div>
-    <h4 class="font-bold text-sm">{{ item.name }}</h4>
-    <div class="flex flex-col gap-1 w-full text-sm">
+    <h4 class="font-bold">{{ item.name }}</h4>
+    <div class="flex flex-col gap-1 w-full">
       <div class="flex items-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"

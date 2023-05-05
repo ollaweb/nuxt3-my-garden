@@ -9,10 +9,10 @@ const growingPlantStore = useGrowingPlantStore();
     <div v-if="growingPlantStore.growingPlant.stageOfGrowing == 0">
       <svg
         width="117"
-        height="143"
         viewBox="0 0 117 143"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        class="w-12 md:w-20 lg:w-28"
       >
         <path
           d="M113 120H3C1.34315 120 0 121.343 0 123V140C0 141.657 1.34315 143 3 143H113C114.657 143 116 141.657 116 140V123C116 121.343 114.657 120 113 120Z"

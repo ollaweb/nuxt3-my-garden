@@ -9,7 +9,7 @@ let weather: Weather = reactive({
 
 <template>
   <div
-    class="h-full max-h-[500px] relative flex flex-col justify-end rounded-lg p-2 bg-gradient-to-b from-cyan-200 to-green-200"
+    class="h-full relative flex flex-col justify-end rounded-lg p-2 bg-gradient-to-b from-cyan-200 to-green-200"
     :class="{ 'from-sky-600 to-sky-900': weather.name == 'clouds' }"
   >
     <div class="weather absolute w-full top-0 left-0">
@@ -48,10 +48,10 @@ let weather: Weather = reactive({
       <div class="sun absolute top-2 right-2" v-show="weather.name == 'sun'">
         <svg
           width="102"
-          height="100"
           viewBox="0 0 102 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          class="w-12 md:w-20 lg:w-24"
         >
           <g clip-path="url(#clip0_13_183)">
             <path

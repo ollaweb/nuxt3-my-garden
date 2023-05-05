@@ -6,7 +6,7 @@
       <slot></slot>
     </div>
     <div
-      class="absolute top-0 left-o w-full h-full bg-zinc-800 bg-opacity-70"
+      class="absolute top-0 left-o w-full h-full bg-zinc-800 bg-opacity-70 z-20"
     ></div>
   </div>
 </template>
