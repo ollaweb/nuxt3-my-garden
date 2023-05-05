@@ -1,0 +1,1 @@
+import{f as s,G as o,o as a,b as n,h as e,t as c,u as r}from"./entry.36c0f99d.js";const l={class:"w-full h-full mx-auto max-w-screen-xl px-4 py-8"},u={class:"text-xl text-green-600"},_=e("p",null,"Welcome to your homepage!",-1),x=s({__name:"[id]",setup(p){const t=o();return(i,m)=>(a(),n("div",l,[e("h2",u,c(r(t).params.id),1),_]))}});export{x as default};

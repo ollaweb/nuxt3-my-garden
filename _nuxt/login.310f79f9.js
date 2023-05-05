@@ -1,0 +1,1 @@
+import{a as e,b as s,o as t,h as o}from"./entry.36c0f99d.js";const c={},n={class:"w-full h-full mx-auto max-w-screen-xl px-4 py-8 flex flex-col items-center justify-center"},a=o("h2",null,"This is a Login page!",-1),l=[a];function r(_,i){return t(),s("div",n,l)}const x=e(c,[["render",r]]);export{x as default};

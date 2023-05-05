@@ -1,0 +1,1 @@
+import{a as e,b as s,o as t,h as c}from"./entry.36c0f99d.js";const o={},r={class:"w-full h-full mx-auto max-w-screen-xl px-4 py-8 flex flex-col items-center justify-center"},a=c("h2",null,"This is a Register page!",-1),n=[a];function l(_,i){return t(),s("div",r,n)}const x=e(o,[["render",l]]);export{x as default};
